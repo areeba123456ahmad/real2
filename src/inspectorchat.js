@@ -30,11 +30,11 @@ function InspectorChat() {
       setMessages(newMessages);
       scrollToBottom(); // Scroll to bottom when new messages are fetched
     });
-
+  
     return () => {
       unsubscribe();
     };
-  }, [firestore]); // Trigger effect when firestore connection changes
+  }, []); // Trigger effect when firestore connection changes
 
   const handleMessageSubmit = async (e) => {
     e.preventDefault();
