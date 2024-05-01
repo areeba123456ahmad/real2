@@ -39,7 +39,7 @@ width: 100%;
 .chat-container {
     display: flex;
     flex-direction: column;
-   
+   padding-left: 20%;
     padding: 10px;
     background-color: #181c1f;
    

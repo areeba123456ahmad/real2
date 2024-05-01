@@ -97,7 +97,7 @@ function UserChat() {
       
         <div className='nameOfsender'>
        
-          <h1>Current User hello g</h1>
+          <h1>Current User </h1>
           </div>
         <div className="chat-controls">
           <button className="control-button" onClick={handleOptionsClick}>
