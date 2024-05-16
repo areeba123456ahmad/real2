@@ -4,19 +4,21 @@ import { initializeApp } from 'firebase/app'; // Import initializeApp from Fireb
 import { FaEllipsisV, FaSearch, FaTrash, FaUser } from 'react-icons/fa'; // Import icons
 import './UserChat.css'; // Import CSS for styling
 import logo from './logo.png';
-const firebaseConfig = {
-  apiKey: "AIzaSyC-VvCeAVXtxgtE3B2xeAu0WrvK8Ip5F5Q",
-  authDomain: "realtime-8d524.firebaseapp.com",
-  projectId: "realtime-8d524",
-  storageBucket: "realtime-8d524.appspot.com",
-  messagingSenderId: "130900366608",
-  appId: "1:130900366608:web:69fe63600c8bb2146a0195",
-  measurementId: "G-8Z58VKMZMT"
+
+// New Firebase configuration for your new database
+const newFirebaseConfig = {
+  apiKey: "AIzaSyDXf7nweLURkhBJ8oIjnqj67hqTh50rgd4",
+  authDomain: "realtimedusri.firebaseapp.com",
+  projectId: "realtimedusri",
+  storageBucket: "realtimedusri.appspot.com",
+  messagingSenderId: "885162211561",
+  appId: "1:885162211561:web:67fcd0ee0f62f17fc91878",
+  measurementId: "G-K3VEDEGP5L"
 };
 
 // Initialize Firebase app outside the component
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
+const newApp = initializeApp(newFirebaseConfig);
+const newFirestore = getFirestore(newApp);
 
 function UserChat() {
   const [messages, setMessages] = useState([]);
@@ -26,7 +28,7 @@ function UserChat() {
   const messageContainerRef = useRef(null);
 
   useEffect(() => {
-    const q = query(collection(firestore, 'conversations'), orderBy('timestamp'));
+    const q = query(collection(newFirestore, 'conversations'), orderBy('timestamp'));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const newMessages = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setMessages(newMessages);
@@ -45,7 +47,7 @@ function UserChat() {
     if (newMessage.trim() === '') return;
 
     try {
-      await addDoc(collection(firestore, 'conversations'), {
+      await addDoc(collection(newFirestore, 'conversations'), {
         content: newMessage,
         sender: currentUser,
         timestamp: new Date().getTime(),
@@ -64,7 +66,7 @@ function UserChat() {
 
   const deleteMessage = async (messageId) => {
     try {
-      const messageRef = doc(firestore, 'conversations', messageId);
+      const messageRef = doc(newFirestore, 'conversations', messageId);
       await deleteDoc(messageRef);
     } catch (error) {
       console.error('Error deleting message:', error);
@@ -89,16 +91,16 @@ function UserChat() {
   return (
     <div className="chat-container">
 
-<div className="logo-container">
+      <div className="logo-container">
         <img src={logo} alt="Logo" className="logo-image" />
       </div>
 
       <div className="chat-header">
-      
+
         <div className='nameOfsender'>
-       
-          <h1>Current User </h1>
-          </div>
+
+          <h1>Current User</h1>
+        </div>
         <div className="chat-controls">
           <button className="control-button" onClick={handleOptionsClick}>
             <FaEllipsisV />
@@ -111,7 +113,7 @@ function UserChat() {
           </button>
         </div>
       </div>
-      
+
       <div className="message-list" ref={messageContainerRef}>
         {messages.map((message) => (
           <div key={message.id} className={`message ${message.sender === currentUser ? 'user-message' : 'other-message'}`}>

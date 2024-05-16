@@ -1,27 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { getFirestore, collection, addDoc, query, orderBy, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
-import { initializeApp } from 'firebase/app';
 import { FaEllipsisV, FaSearch, FaTrash, FaUser } from 'react-icons/fa';
 import './UserChat.css';
 import logo from './logo.png';
-const firebaseConfig = {
-  apiKey: "AIzaSyC-VvCeAVXtxgtE3B2xeAu0WrvK8Ip5F5Q",
-  authDomain: "realtime-8d524.firebaseapp.com",
-  projectId: "realtime-8d524",
-  storageBucket: "realtime-8d524.appspot.com",
-  messagingSenderId: "130900366608",
-  appId: "1:130900366608:web:69fe63600c8bb2146a0195",
-  measurementId: "G-8Z58VKMZMT"
-};
 
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-
-function InspectorChat() {
+function InspectorChat({ app }) {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const currentUser = 'Inspector';
   const messageContainerRef = useRef(null);
+  const firestore = getFirestore(app); // Use the firestore instance from props
 
   useEffect(() => {
     const q = query(collection(firestore, 'conversations'), orderBy('timestamp'));
@@ -30,11 +18,11 @@ function InspectorChat() {
       setMessages(newMessages);
       scrollToBottom(); // Scroll to bottom when new messages are fetched
     });
-  
+
     return () => {
       unsubscribe();
     };
-  }, []); // Trigger effect when firestore connection changes
+  }, [firestore]); // Trigger effect when firestore connection changes
 
   const handleMessageSubmit = async (e) => {
     e.preventDefault();
@@ -86,8 +74,7 @@ function InspectorChat() {
 
   return (
     <div className="chat-container">
-
-<div className="logo-container">
+      <div className="logo-container">
         <img src={logo} alt="Logo" className="logo-image" />
       </div>
       <div className="chat-header">
@@ -106,7 +93,6 @@ function InspectorChat() {
           </button>
         </div>
       </div>
-      
       <div className="message-list" ref={messageContainerRef}>
         {messages.map((message) => (
           <div key={message.id} className={`message ${message.sender === currentUser ? 'user-message' : 'other-message'}`}>
@@ -119,7 +105,6 @@ function InspectorChat() {
           </div>
         ))}
       </div>
-      
       <form onSubmit={handleMessageSubmit} className="message-form">
         <input
           type="text"
@@ -127,7 +112,7 @@ function InspectorChat() {
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Type your message..."
         />
-          <button type="button">😊</button>
+        <button type="button">😊</button>
         <button type="submit">Send</button>
       </form>
     </div>

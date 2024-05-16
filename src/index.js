@@ -5,13 +5,13 @@ import ReactDOM from 'react-dom';
 import App from './App'; // Assuming your main component is named App and located in App.js
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC-VvCeAVXtxgtE3B2xeAu0WrvK8Ip5F5Q",
-  authDomain: "realtime-8d524.firebaseapp.com",
-  projectId: "realtime-8d524",
-  storageBucket: "realtime-8d524.appspot.com",
-  messagingSenderId: "130900366608",
-  appId: "1:130900366608:web:69fe63600c8bb2146a0195",
-  measurementId: "G-8Z58VKMZMT"
+  apiKey: "AIzaSyDXf7nweLURkhBJ8oIjnqj67hqTh50rgd4",
+  authDomain: "realtimedusri.firebaseapp.com",
+  projectId: "realtimedusri",
+  storageBucket: "realtimedusri.appspot.com",
+  messagingSenderId: "885162211561",
+  appId: "1:885162211561:web:67fcd0ee0f62f17fc91878",
+  measurementId: "G-K3VEDEGP5L"
 };
 
 const firebaseApp = initializeApp(firebaseConfig); // Initialize Firebase

@@ -7,7 +7,10 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/inspector" element={<InspectorChat />} />
+        {/* Route for the InspectorChat component */}
+        <Route path="/inspector" element={<InspectorChat App={App} />} />
+        
+        {/* Route for the UserChat component */}
         <Route path="/" element={<UserChat />} />
       </Routes>
     </Router>
